@@ -13,6 +13,7 @@ RUN buildDeps=" \
 	    libpq-dev \
 	    libxml2-dev \
 		zlib1g-dev \
+    	libxslt1-dev \
 	"\
 	set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
