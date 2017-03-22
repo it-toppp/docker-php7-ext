@@ -22,6 +22,5 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-install -j$(nproc) gd
 
 RUN	pecl install redis \
-	&& apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $buildDeps \
 	&& rm -r /var/lib/apt/lists/* \
 	&& rm -r /tmp/*
