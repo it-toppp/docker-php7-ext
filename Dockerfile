@@ -23,6 +23,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-install -j$(nproc) gd
 
 RUN	pecl install redis \
-	&& docker-php-ext-enable redis \ 
 	&& rm -r /var/lib/apt/lists/* \
 	&& rm -r /tmp/*
+
+RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+
+RUN echo "date.timezone = \"Asia/Shanghai\"" >> /usr/local/etc/php/conf.d/timezone.ini
