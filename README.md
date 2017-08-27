@@ -1,1 +1,1 @@
-#This project added most of the PHP expansion as base fpm.
+#### This docker image added most of the PHP expansion, only for develop env.
