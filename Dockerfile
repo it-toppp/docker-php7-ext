@@ -1,4 +1,4 @@
-FROM php:latest
+FROM php:fpm
 
 MAINTAINER MrGeneral <mrgeneralgoo@gmail.com>
 
