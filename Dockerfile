@@ -14,6 +14,7 @@ RUN buildDeps=" \
 	    libxml2-dev \
 		zlib1g-dev \
     	libxslt1-dev \
+        python \
 	"\
 	set -x \
 	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
@@ -22,17 +23,20 @@ RUN buildDeps=" \
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd
 
+WORKDIR /tmp
+
 # get librdkafka version from https://github.com/edenhill/librdkafka
 ENV LIBRDKAFKA_VERSION=0.11.0
 RUN curl -fsSL https://github.com/edenhill/librdkafka/archive/v${LIBRDKAFKA_VERSION}.tar.gz -o v${LIBRDKAFKA_VERSION}.tar.gz && \
     tar -zxf v${LIBRDKAFKA_VERSION}.tar.gz && \
     cd librdkafka-${LIBRDKAFKA_VERSION} && \
-    ./configure && make && make install
+    ./configure && make -j$(nproc) && make install
 
 RUN	pecl install redis \
-	pecl install rdkafka \
-	&& rm -r /var/lib/apt/lists/* \
-	&& rm -r /tmp/*
+	pecl install rdkafka
 	
 RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-RUN echo "date.timezone = \"Asia/Shanghai\"" >> /usr/local/etc/php/conf.d/timezone.ini
+RUN echo "date.timezone = \"Asia/Shanghai\"" > /usr/local/etc/php/conf.d/timezone.ini
+
+RUN rm -r /var/lib/apt/lists/* \
+    && rm -r /tmp/*
