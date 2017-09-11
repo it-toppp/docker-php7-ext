@@ -24,8 +24,8 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 
 # get librdkafka version from https://github.com/edenhill/librdkafka
 ENV LIBRDKAFKA_VERSION=0.11.0
-RUN wget https://github.com/edenhill/librdkafka/archive/v${LIBRDKAFKA_VERSION}.tar.gz && \
-    tar -xvf v${LIBRDKAFKA_VERSION}.tar.gz && \
+RUN curl -fsSL https://github.com/edenhill/librdkafka/archive/v${LIBRDKAFKA_VERSION}.tar.gz -o v${LIBRDKAFKA_VERSION}.tar.gz && \
+    tar -zxf v${LIBRDKAFKA_VERSION}.tar.gz && \
     cd librdkafka-${LIBRDKAFKA_VERSION} && \
     ./configure && make && make install
 
