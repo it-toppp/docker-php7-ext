@@ -30,4 +30,5 @@ RUN	pecl install rdkafka \
 
 
 RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+RUN echo "extension=rdkafka.so" > /usr/local/etc/php/conf.d/rdkafka.ini
 RUN echo "date.timezone = \"Asia/Shanghai\"" >> /usr/local/etc/php/conf.d/timezone.ini
