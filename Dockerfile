@@ -35,7 +35,7 @@ RUN curl -fsSL https://github.com/edenhill/librdkafka/archive/v0.11.1.tar.gz -o 
          && make -j$(nproc) \
          && make install \
      ) \
-    && rm -r php-ast
+    && rm -r librdkafka
 
 RUN curl -fsSL 'https://github.com/nikic/php-ast/archive/v0.1.6.tar.gz' -o php-ast.tar.gz \
 	&& mkdir -p php-ast \
