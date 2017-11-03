@@ -51,12 +51,13 @@ RUN curl -fsSL 'https://github.com/nikic/php-ast/archive/v0.1.6.tar.gz' -o php-a
     && rm -r php-ast \
     && docker-php-ext-enable ast
 
+# no enable xdebug on default, you can find it on conf.d/xdebug.ini
 RUN	pecl install redis \
-	pecl install rdkafka \
-    pecl install swoole
-	
-RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
-RUN echo "date.timezone = \"Asia/Shanghai\"" > /usr/local/etc/php/conf.d/timezone.ini
+	&& pecl install rdkafka \
+    && pecl install swoole \
+    && pecl install xdebug \
+    && pecl install yaf \
+    && docker-php-ext-enable redis rdkafka swoole yaf
 
 # php config folder
 COPY conf.d/* /usr/local/etc/php/conf.d/
