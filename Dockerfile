@@ -9,7 +9,7 @@ RUN buildDeps=" \
 	    libicu-dev \
 	    libjpeg62-turbo-dev \
 	    libkrb5-dev \
-	    libpng12-dev \
+	    libpng-dev \
 	    libpq-dev \
 	    libxml2-dev \
 		zlib1g-dev \
@@ -17,7 +17,7 @@ RUN buildDeps=" \
         python \
 	"\
 	set -x \
-	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+	&& apt-get update -y && apt-get install -y $buildDeps --no-install-recommends \
 	&& docker-php-ext-install -j$(nproc) bz2 zip exif bcmath sysvsem pcntl sockets pdo_mysql mysqli intl readline soap xsl xmlrpc
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
